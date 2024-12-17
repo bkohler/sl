@@ -48,6 +48,7 @@ void add_man(int y, int x);
 int add_C51(int x);
 int add_D51(int x);
 int add_sl(int x);
+int add_car(int x);
 void option(char *str);
 int my_mvaddstr(int y, int x, char *str);
 
@@ -55,6 +56,7 @@ int ACCIDENT  = 0;
 int LOGO      = 0;
 int FLY       = 0;
 int C51       = 0;
+int CAR       = 0;
 
 int my_mvaddstr(int y, int x, char *str)
 {
@@ -67,7 +69,7 @@ int my_mvaddstr(int y, int x, char *str)
 
 void option(char *str)
 {
-    extern int ACCIDENT, LOGO, FLY, C51;
+    extern int ACCIDENT, LOGO, FLY, C51, CAR;
 
     while (*str != '\0') {
         switch (*str++) {
@@ -75,6 +77,7 @@ void option(char *str)
             case 'F': FLY      = 1; break;
             case 'l': LOGO     = 1; break;
             case 'c': C51      = 1; break;
+            case 'r': CAR      = 1; break;
             default:                break;
         }
     }
@@ -104,6 +107,9 @@ int main(int argc, char *argv[])
         else if (C51 == 1) {
             if (add_C51(x) == ERR) break;
         }
+        else if (CAR == 1) {
+            if (add_car(x) == ERR) break;
+        }
         else {
             if (add_D51(x) == ERR) break;
         }
@@ -117,6 +123,46 @@ int main(int argc, char *argv[])
     return 0;
 }
 
+int add_car(int x)
+{
+    static char *car[CARPATTERNS][CARHEIGHT]
+        = {{CARSTR1, CARSTR2, CARSTR3, CARSTR4},
+           {CARSTR1, CARSTR2, CARSTR3, CARSTR4},
+           {CARSTR1, CARSTR2, CARSTR3, CARSTR4},
+           {CARSTR1, CARSTR2, CARSTR3, CARSTR4},
+           {CARSTR1, CARSTR2, CARSTR3, CARSTR4},
+           {CARSTR1, CARSTR2, CARSTR3, CARSTR4}};
+
+    static char *wheels[CARPATTERNS][2]
+        = {{CARWHL11, CARWHL12},
+           {CARWHL21, CARWHL22},
+           {CARWHL31, CARWHL32},
+           {CARWHL41, CARWHL42},
+           {CARWHL51, CARWHL52},
+           {CARWHL61, CARWHL62}};
+
+    int y, i;
+
+    if (x < - CARLENGTH)  return ERR;
+    y = LINES / 2 - 3;
+
+    if (FLY == 1) {
+        y = (x / 7) + LINES - (COLS / 7) - CARHEIGHT;
+    }
+    
+    int pattern = (CARLENGTH + x) % CARPATTERNS;
+    for (i = 0; i < CARHEIGHT; ++i) {
+        my_mvaddstr(y + i, x, car[pattern][i]);
+    }
+    my_mvaddstr(y + CARHEIGHT, x, wheels[pattern][0]);
+    my_mvaddstr(y + CARHEIGHT + 1, x, wheels[pattern][1]);
+
+    if (ACCIDENT == 1) {
+        add_man(y + 2, x + 12);
+        add_man(y + 2, x + 16);
+    }
+    return OK;
+}
 
 int add_sl(int x)
 {

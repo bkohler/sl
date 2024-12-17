@@ -12,6 +12,36 @@
 #define D51LENGTH	83
 #define D51PATTERNS	 6
 
+/* Car dimensions */
+#define CARHEIGHT       4
+#define CARLENGTH      25
+#define CARPATTERNS     6
+
+/* Car ASCII patterns */
+#define CARSTR1  "   _____________________ "
+#define CARSTR2  " _/_|[][][][][][][][][]|"
+#define CARSTR3  "(                       )"
+#define CARSTR4  " `-OO-OO-OO-OO-OO-OO-O-'"
+
+#define CARWHL11 " o      o      o      o "
+#define CARWHL12 "                        "
+
+#define CARWHL21 "     o      o      o    "
+#define CARWHL22 "                        "
+
+#define CARWHL31 "   o      o      o     o"
+#define CARWHL32 "                        "
+
+#define CARWHL41 "  o      o      o      "
+#define CARWHL42 "                        "
+
+#define CARWHL51 "       o      o      o  "
+#define CARWHL52 "                        "
+
+#define CARWHL61 "    o      o      o     "
+#define CARWHL62 "                        "
+
+#define CARDEL   "                        "
 
 #define D51STR1  "      ====        ________                ___________ "
 #define D51STR2  "  _D _|  |_______/        \\__I_I_____===__|_________| "
