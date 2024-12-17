@@ -49,6 +49,7 @@ int add_C51(int x);
 int add_D51(int x);
 int add_sl(int x);
 int add_car(int x);
+int add_person(int x);
 void option(char *str);
 int my_mvaddstr(int y, int x, char *str);
 
@@ -57,6 +58,7 @@ int LOGO      = 0;
 int FLY       = 0;
 int C51       = 0;
 int CAR       = 0;
+int PERSON    = 0;
 
 int my_mvaddstr(int y, int x, char *str)
 {
@@ -69,7 +71,7 @@ int my_mvaddstr(int y, int x, char *str)
 
 void option(char *str)
 {
-    extern int ACCIDENT, LOGO, FLY, C51, CAR;
+    extern int ACCIDENT, LOGO, FLY, C51, CAR, PERSON;
 
     while (*str != '\0') {
         switch (*str++) {
@@ -78,6 +80,7 @@ void option(char *str)
             case 'l': LOGO     = 1; break;
             case 'c': C51      = 1; break;
             case 'r': CAR      = 1; break;
+            case 'p': PERSON   = 1; break;
             default:                break;
         }
     }
@@ -110,6 +113,9 @@ int main(int argc, char *argv[])
         else if (CAR == 1) {
             if (add_car(x) == ERR) break;
         }
+        else if (PERSON == 1) {
+            if (add_person(x) == ERR) break;
+        }
         else {
             if (add_D51(x) == ERR) break;
         }
@@ -121,6 +127,34 @@ int main(int argc, char *argv[])
     endwin();
 
     return 0;
+}
+
+int add_person(int x)
+{
+    static char *person[PERSONPATTERNS][PERSONHEIGHT] = {
+        {PERSON1_1, PERSON1_2, PERSON1_3, PERSON1_4},
+        {PERSON2_1, PERSON2_2, PERSON2_3, PERSON2_4},
+        {PERSON3_1, PERSON3_2, PERSON3_3, PERSON3_4},
+        {PERSON4_1, PERSON4_2, PERSON4_3, PERSON4_4},
+        {PERSON5_1, PERSON5_2, PERSON5_3, PERSON5_4},
+        {PERSON6_1, PERSON6_2, PERSON6_3, PERSON6_4}
+    };
+
+    int y, i;
+
+    if (x < - PERSONLENGTH) return ERR;
+    y = LINES / 2 - 3;
+
+    if (FLY == 1) {
+        y = (x / 7) + LINES - (COLS / 7) - PERSONHEIGHT;
+    }
+
+    int pattern = (PERSONLENGTH + x) % PERSONPATTERNS;
+    for (i = 0; i < PERSONHEIGHT; ++i) {
+        my_mvaddstr(y + i, x, person[pattern][i]);
+    }
+
+    return OK;
 }
 
 int add_car(int x)

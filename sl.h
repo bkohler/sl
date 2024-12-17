@@ -17,6 +17,42 @@
 #define CARLENGTH      25
 #define CARPATTERNS     6
 
+/* Running person dimensions */
+#define PERSONHEIGHT     4
+#define PERSONLENGTH    12
+#define PERSONPATTERNS   6
+
+/* Running person ASCII patterns */
+#define PERSON1_1  "   O    "
+#define PERSON1_2  "  /|\\   "
+#define PERSON1_3  "  / \\   "
+#define PERSON1_4  "       "
+
+#define PERSON2_1  "    O   "
+#define PERSON2_2  "   /|\\ "
+#define PERSON2_3  "   |  \\"
+#define PERSON2_4  "       "
+
+#define PERSON3_1  "   O    "
+#define PERSON3_2  "  /|\\   "
+#define PERSON3_3  "  / \\   "
+#define PERSON3_4  "       "
+
+#define PERSON4_1  "  O     "
+#define PERSON4_2  " /|\\    "
+#define PERSON4_3  "/  |    "
+#define PERSON4_4  "       "
+
+#define PERSON5_1  "   O    "
+#define PERSON5_2  "  /|\\   "
+#define PERSON5_3  "  / \\   "
+#define PERSON5_4  "       "
+
+#define PERSON6_1  "    O   "
+#define PERSON6_2  "   /|\\ "
+#define PERSON6_3  "  /  | "
+#define PERSON6_4  "       "
+
 /* Car ASCII patterns */
 #define CARSTR1  "   _____________________ "
 #define CARSTR2  " _/_|[][][][][][][][][]|"
