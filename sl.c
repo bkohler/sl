@@ -50,6 +50,7 @@ int add_D51(int x);
 int add_sl(int x);
 int add_car(int x);
 int add_person(int x);
+void add_banner(int x);
 void option(char *str);
 int my_mvaddstr(int y, int x, char *str);
 
@@ -104,21 +105,7 @@ int main(int argc, char *argv[])
     scrollok(stdscr, FALSE);
 
     for (x = COLS - 1; ; --x) {
-        if (LOGO == 1) {
-            if (add_sl(x) == ERR) break;
-        }
-        else if (C51 == 1) {
-            if (add_C51(x) == ERR) break;
-        }
-        else if (CAR == 1) {
-            if (add_car(x) == ERR) break;
-        }
-        else if (PERSON == 1) {
-            if (add_person(x) == ERR) break;
-        }
-        else {
-            if (add_D51(x) == ERR) break;
-        }
+        add_banner(x);
         getch();
         refresh();
         usleep(40000);
@@ -127,6 +114,16 @@ int main(int argc, char *argv[])
     endwin();
 
     return 0;
+}
+
+void add_banner(int x)
+{
+    int y = LINES / 2 - 2;
+    my_mvaddstr(y + 0, x, "HHHHH EEEEE L     L     OOOO   BBBBB EEEEE N   N  JJJJJ AAAAA M   M I NNNNN");
+    my_mvaddstr(y + 1, x, "H   H E     L     L     O   O  B   B E     NN  N  J       A   A MM MM I N   N");
+    my_mvaddstr(y + 2, x, "HHHHH EEEEE L     L     O   O  BBBBB EEEEE N N N  J       AAAAA M M M I NNNNN");
+    my_mvaddstr(y + 3, x, "H   H E     L     L     O   O  B   B E     N  NN  J       A   A M   M I N   N");
+    my_mvaddstr(y + 4, x, "H   H EEEEE LLLLL LLLLL OOOO   BBBBB EEEEE N   N  JJJJJ A   A M   M I N   N");
 }
 
 int add_person(int x)
@@ -238,7 +235,6 @@ int add_sl(int x)
     return OK;
 }
 
-
 int add_D51(int x)
 {
     static char *d51[D51PATTERNS][D51HEIGHT + 1]
@@ -319,7 +315,6 @@ int add_C51(int x)
     return OK;
 }
 
-
 void add_man(int y, int x)
 {
     static char *man[2][2] = {{"", "(O)"}, {"Help!", "\\O/"}};
@@ -329,7 +324,6 @@ void add_man(int y, int x)
         my_mvaddstr(y + i, x, man[(LOGOLENGTH + x) / 12 % 2][i]);
     }
 }
-
 
 void add_smoke(int y, int x)
 #define SMOKEPTNS        16
