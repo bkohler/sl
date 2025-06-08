@@ -50,6 +50,7 @@ int add_D51(int x);
 int add_sl(int x);
 int add_car(int x);
 int add_person(int x);
+int add_penguin(int x);
 void add_banner(int x);
 void option(char *str);
 int my_mvaddstr(int y, int x, char *str);
@@ -60,6 +61,7 @@ int FLY       = 0;
 int C51       = 0;
 int CAR       = 0;
 int PERSON    = 0;
+int PENGUIN   = 0;
 
 int my_mvaddstr(int y, int x, char *str)
 {
@@ -82,6 +84,7 @@ void option(char *str)
             case 'c': C51      = 1; break;
             case 'r': CAR      = 1; break;
             case 'p': PERSON   = 1; break;
+            case 'g': PENGUIN  = 1; break;
             default:                break;
         }
     }
@@ -105,7 +108,10 @@ int main(int argc, char *argv[])
     scrollok(stdscr, FALSE);
 
     for (x = COLS - 1; ; --x) {
-        add_banner(x);
+        if (PENGUIN)
+            add_penguin(x);
+        else
+            add_banner(x);
         getch();
         refresh();
         usleep(40000);
@@ -149,6 +155,27 @@ int add_person(int x)
     int pattern = (PERSONLENGTH + x) % PERSONPATTERNS;
     for (i = 0; i < PERSONHEIGHT; ++i) {
         my_mvaddstr(y + i, x, person[pattern][i]);
+    }
+
+    return OK;
+}
+
+int add_penguin(int x)
+{
+    static char *penguin[PENGUINHEIGHT] =
+        {PENGUIN1, PENGUIN2, PENGUIN3, PENGUIN4, PENGUIN5};
+
+    int y, i;
+
+    if (x < - PENGUINLENGTH) return ERR;
+    y = LINES / 2 - 3;
+
+    if (FLY == 1) {
+        y = (x / 7) + LINES - (COLS / 7) - PENGUINHEIGHT;
+    }
+
+    for (i = 0; i < PENGUINHEIGHT; ++i) {
+        my_mvaddstr(y + i, x, penguin[i]);
     }
 
     return OK;

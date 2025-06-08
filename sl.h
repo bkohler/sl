@@ -214,3 +214,14 @@
 #define C51WH12 "------'|oOo|=[]=-      ||      ||      |  ||=======_|__"
 #define C51WH13 "/~\\____|___|/~\\_|  O=======O=======O   |__|+-/~\\_|     "
 #define C51WH14 "\\_/         \\_/  \\____/  \\____/  \\____/      \\_/       "
+
+/* Penguin dimensions */
+#define PENGUINHEIGHT 5
+#define PENGUINLENGTH 9
+
+/* Penguin ASCII pattern */
+#define PENGUIN1 "   _~_   "
+#define PENGUIN2 "  (o o)  "
+#define PENGUIN3 " /  V  \\ "
+#define PENGUIN4 "/(  _  )\\"
+#define PENGUIN5 "  ^^ ^^  "
