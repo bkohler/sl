@@ -355,11 +355,15 @@ void add_man(int y, int x)
 void add_smoke(int y, int x)
 #define SMOKEPTNS        16
 {
+    /* Limit the number of smoke entries so we don't write past the
+       allocated array when the program runs for a long time. */
+#define MAXSMOKE 1000
     static struct smokes {
         int y, x;
         int ptrn, kind;
-    } S[1000];
+    } S[MAXSMOKE];
     static int sum = 0;
+    static int total = 0;      /* number of active smoke entries */
     static char *Smoke[2][SMOKEPTNS]
         = {{"(   )", "(    )", "(    )", "(   )", "(  )",
             "(  )" , "( )"   , "( )"   , "()"   , "()"  ,
@@ -381,7 +385,7 @@ void add_smoke(int y, int x)
     int i;
 
     if (x % 4 == 0) {
-        for (i = 0; i < sum; ++i) {
+        for (i = 0; i < total; ++i) {
             my_mvaddstr(S[i].y, S[i].x, Eraser[S[i].ptrn]);
             S[i].y    -= dy[S[i].ptrn];
             S[i].x    += dx[S[i].ptrn];
@@ -391,6 +395,8 @@ void add_smoke(int y, int x)
         my_mvaddstr(y, x, Smoke[sum % 2][0]);
         S[sum].y = y;    S[sum].x = x;
         S[sum].ptrn = 0; S[sum].kind = sum % 2;
-        sum ++;
+        sum = (sum + 1) % MAXSMOKE;
+        if (total < MAXSMOKE)
+            total++;
     }
 }
